@@ -308,9 +308,9 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   moviePoster: PropTypes.objectOf({
-    TITLE: PropTypes.string,
-    GENRE: PropTypes.string,
-    YEAR: PropTypes.number
+    title: PropTypes.string,
+    genre: PropTypes.string,
+    year: PropTypes.number
   })
 };
 
