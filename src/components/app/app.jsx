@@ -7,7 +7,7 @@ const App = (props) => {
 
   return (
     <MainPage
-      {...{moviePoster}}
+      moviePoster={moviePoster}
     />
   );
 };

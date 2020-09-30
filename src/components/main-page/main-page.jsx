@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const MainPage = (props) => {
-  const {TITLE: title, GENRE: genre, YEAR: year} = props.moviePoster;
+  const {title, genre, year} = props.moviePoster;
 
   return (<>
     <section className="movie-card">
