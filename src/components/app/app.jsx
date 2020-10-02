@@ -13,7 +13,11 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  moviePoster: PropTypes.object.isRequired
+  moviePoster: PropTypes.objectOf({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default App;
