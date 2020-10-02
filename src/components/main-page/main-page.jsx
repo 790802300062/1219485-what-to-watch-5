@@ -315,5 +315,3 @@ MainPage.propTypes = {
 };
 
 export default MainPage;
-
-
