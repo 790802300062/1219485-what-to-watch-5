@@ -308,12 +308,10 @@ const MainPage = (props) => {
 
 MainPage.propTypes = {
   moviePoster: PropTypes.objectOf({
-    title: PropTypes.string,
-    genre: PropTypes.string,
-    year: PropTypes.number
-  })
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default MainPage;
-
-
