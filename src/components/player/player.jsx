@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
+import {filmValidator} from "../../props-validators/props-validators";
 
 const Player = () => {
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="/img/player-poster.jpg"></video>
+      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -11,7 +14,7 @@ const Player = () => {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={ {left: `30%`} }>Toggler</div>
+            <div className="player__toggler">Toggler</div>
           </div>
           <div className="player__time-value">1:30:29</div>
         </div>
@@ -35,6 +38,10 @@ const Player = () => {
       </div>
     </div>
   );
+};
+
+Player.propTypes = {
+  film: PropTypes.shape(filmValidator)
 };
 
 export default Player;
