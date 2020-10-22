@@ -1,56 +1,59 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Switch,
-  Route,
-  BrowserRouter
-} from 'react-router-dom';
-
-import MainPage from '../main-page/main-page';
-import Login from '../login/login';
-import MyList from '../my-list/my-list';
-import Film from '../film/film';
-import AddReview from '../add-review/add-review';
-import Player from '../player/player';
+import React from "react";
+import PropTypes from "prop-types";
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
+import Main from "../main/main";
+import AddReview from "../add-review/add-review";
+import Film from "../film/film";
+import Login from "../login/login";
+import MyList from "../my-list/my-list";
+import Player from "../player/player";
+import {filmValidator, reviewValidator} from "../../props-validators/props-validators";
+import {getRandomElement} from "../../utils/common";
 
 const App = (props) => {
-  const {moviePoster} = props;
+  const {films, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" >
-          <MainPage moviePoster={moviePoster}/>
+        <Route path="/" exact>
+          <Main
+            films={films}
+          />
         </Route>
-        <Route exact path="/login">
-          <Login />
+        <Route path="/login" exact component={Login} />
+        <Route path="/mylist" exact>
+          <MyList films={films}/>
         </Route>
-        <Route exact path="/mylist">
-          <MyList />
+        <Route path="/films/:id/review" exact>
+          <AddReview film={getRandomElement(films)} />
         </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview />
+        <Route path="/films/:id">
+          <Film films={films} reviews={reviews}/>
         </Route>
-        <Route exact path="/films/:id">
-          <Film />
+        <Route path="/player/:id" exact>
+          <Player film={getRandomElement(films)}/>
         </Route>
-        <Route exact path="/player/:id">
-          <Player />
-        </Route>
-        <Route>
-          <h1>404: Not Found</h1>
-        </Route>
+        <Route
+          render={() => (
+            <React.Fragment>
+              <h1>
+                404.
+                <br />
+                <small>Page not found</small>
+              </h1>
+              <Link to="/">Go to main page</Link>
+            </React.Fragment>
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );
 };
 
 App.propTypes = {
-  moviePoster: PropTypes.objectOf({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
-  }).isRequired
+  films: PropTypes.arrayOf(PropTypes.shape(filmValidator)),
+  reviews: PropTypes.arrayOf(PropTypes.shape(reviewValidator)),
 };
 
 export default App;
