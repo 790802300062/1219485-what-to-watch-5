@@ -11,7 +11,7 @@ export const filmValidator = {
   director: PropTypes.string.isRequired,
   starring: PropTypes.string.isRequired,
   poster: PropTypes.objectOf(PropTypes.string),
-  bacground: PropTypes.objectOf(PropTypes.string),
+  background: PropTypes.objectOf(PropTypes.string),
   video: PropTypes.objectOf(PropTypes.string),
 };
 

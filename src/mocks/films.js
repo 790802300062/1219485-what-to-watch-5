@@ -28,7 +28,7 @@ export default [
     poster: {
       src: `https://pyxis.nymag.com/v1/imgs/bda/929/1f13ce11f1ffcfae457130f5b2bd93e225-09-grand-budapest.rsquare.w700.jpg`
     },
-    bacground: {
+    background: {
       src: `../../public/img/bg-the-grand-budapest-hotel.jpg`
     },
     video: {

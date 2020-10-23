@@ -3,6 +3,8 @@ import FilmCard from "../film-card/film-card";
 import PropTypes from "prop-types";
 import {filmValidator} from "../../props-validators/props-validators";
 
+const VIDEO_TIMEOUT_MS = 1000;
+
 class FilmsList extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ class FilmsList extends React.PureComponent {
     evt.preventDefault();
     setTimeout(this.setState({
       activeFilmId: parseInt(evt.currentTarget.dataset.id, 10)
-    }), 1000);
+    }), VIDEO_TIMEOUT_MS);
   }
 
   _onMouseLeave(evt) {

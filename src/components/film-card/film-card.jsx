@@ -20,10 +20,10 @@ class FilmCard extends React.PureComponent {
       >
         <Link to={`/films/${getRandomInteger(0, 8)}`}>
           {isActive
-            ? <video src={trailer.src} autoPlay width="280" height="175">Something went wrong</video>
+            ? <video src={trailer.src} autoPlay muted="muted" width="280" height="175">Something went wrong</video>
             : <div className="small-movie-card__image">
               <img src={poster.src} alt={title} width="280" height="175" />
-            </div>};
+            </div>}
         </Link>
 
         <h3 className="small-movie-card__title">
