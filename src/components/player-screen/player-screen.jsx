@@ -1,12 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {filmValidator} from "../../props-validators/props-validators";
+import {FilmTypes} from "../../prop-types-validations";
 
-const Player = () => {
+const PlayerScreen = (props) => {
+  const {
+    video,
+    runtime,
+    fullSizePoster,
+    title,
+  } = props.film;
 
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={video} className="player__video" poster={fullSizePoster}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -14,9 +19,9 @@ const Player = () => {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler">Toggler</div>
+            <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{runtime}</div>
         </div>
 
         <div className="player__controls-row">
@@ -26,7 +31,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{title}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -40,8 +45,8 @@ const Player = () => {
   );
 };
 
-Player.propTypes = {
-  film: PropTypes.shape(filmValidator)
+PlayerScreen.propTypes = {
+  film: FilmTypes.filmCard,
 };
 
-export default Player;
+export default PlayerScreen;

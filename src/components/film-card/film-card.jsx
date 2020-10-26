@@ -1,47 +1,57 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {getRandomInteger} from "../../utils/common";
+import PropTypes from "prop-types";
+import {FilmTypes} from "../../prop-types-validations";
 
-class FilmCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const CardVideoSize = {
+  WIDTH: 280,
+  HEIGHT: 175,
+};
 
-  render() {
-    const {title, poster, trailer, onMouseEnter, onMouseLeave, id, isActive} = this.props;
+const VIDEO_STYLES = {
+  verticalAlign: `top`,
+  width: `100%`,
+  height: `100%`,
+  objectFit: `cover`,
+};
 
-    return (
-      <article
-        className="small-movie-card catalog__movies-card"
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        data-id={id}
-      >
-        <Link to={`/films/${getRandomInteger(0, 8)}`}>
-          {isActive
-            ? <video src={trailer.src} autoPlay muted="muted" width="280" height="175">Something went wrong</video>
-            : <div className="small-movie-card__image">
-              <img src={poster.src} alt={title} width="280" height="175" />
-            </div>}
-        </Link>
+const FilmCard = (props) => {
+  const {renderPlayer, mouseOverHandler, mouseLeaveHandler} = props;
+  const {
+    title,
+    fullSizePoster,
+    video,
+  } = props.film;
 
-        <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{title}</a>
-        </h3>
-      </article>
-    );
-  }
-}
+  const videoPlayerSettings = {
+    fullSizePoster,
+    video,
+    width: CardVideoSize.WIDTH,
+    height: CardVideoSize.HEIGHT,
+    videoStyles: VIDEO_STYLES,
+  };
+
+  return (
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseOver={mouseOverHandler}
+      onMouseLeave={mouseLeaveHandler}
+    >
+      <div className="small-movie-card__image">
+        {renderPlayer(videoPlayerSettings)}
+      </div>
+      <h3 className="small-movie-card__title">
+        <Link to="/films/id" className="small-movie-card__link">{title}</Link>
+      </h3>
+    </article>
+  );
+};
 
 FilmCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  poster: PropTypes.objectOf(PropTypes.string),
-  trailer: PropTypes.objectOf(PropTypes.string),
-  isActive: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  film: FilmTypes.filmCard,
+  renderPlayer: PropTypes.func.isRequired,
+  mouseOverHandler: PropTypes.func.isRequired,
+  mouseLeaveHandler: PropTypes.func.isRequired,
 };
 
 export default FilmCard;
