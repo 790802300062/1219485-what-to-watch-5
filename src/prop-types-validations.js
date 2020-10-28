@@ -1,5 +1,14 @@
 import PropTypes from "prop-types";
 
+const reviewProps = PropTypes.shape({
+  text: PropTypes.string.isRequired,
+  filmRating: PropTypes.number.isRequired,
+  userName: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+});
+
+const reviewsListProps = PropTypes.arrayOf(reviewProps).isRequired;
+
 const filmProps = PropTypes.shape({
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
@@ -17,6 +26,11 @@ const filmProps = PropTypes.shape({
 }).isRequired;
 
 const filmListProps = PropTypes.arrayOf(filmProps).isRequired;
+
+export const ReviewTypes = {
+  reviewsList: reviewsListProps,
+  review: reviewProps
+};
 
 export const FilmTypes = {
   films: filmListProps,
