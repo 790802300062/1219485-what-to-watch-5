@@ -53,7 +53,7 @@ class FilmScreenTabs extends PureComponent {
       <div className="movie-card__desc">
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
-          {tabs.map((tab, i) => (
+            {tabs.map((tab, i) => (
               <li key={`tab-${i}`}
                 className={`movie-nav__item ${tab.type === currentTab ? `movie-nav__item--active` : ``}`}
                 onClick={this._handleTabClick}
@@ -76,16 +76,12 @@ class FilmScreenTabs extends PureComponent {
     switch (tabType) {
       case Tab.OVERVIEW:
         return <FilmCardOverviewTab film={this.props.film} />;
-        break;
       case Tab.DETAILS:
         return <FilmCardDetailsTab film={this.props.film} />;
-        break;
       case Tab.REVIEWS:
         return <FilmCardReviewTab reviews={this.props.reviews} />;
-        break;
       default:
         return null;
-        break;
     }
   }
 }
