@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypes, ReviewTypes} from "../../prop-types-validations";
 import MainPage from "../main-page/main-page";
 import AuthScreen from "../auth-screen/auth-screen";
 import MyListScreen from "../my-list-screen/my-list-screen";
@@ -37,6 +37,7 @@ const App = (props) => {
           render={({history}) => (
             <FilmScreen
               film={films[1]}
+              films={films}
               reviews={reviews}
               onPlayButtonClick={() => history.push(`/player/1`)}
             />
@@ -64,7 +65,7 @@ App.propTypes = {
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
   films: FilmTypes.films,
-  reviews: PropTypes.array.isRequired,
+  reviews: ReviewTypes.reviewsList,
 };
 
 export default App;
