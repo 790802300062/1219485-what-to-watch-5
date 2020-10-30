@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {FilmTypes, ReviewTypes} from "../../prop-types-validations";
+import {FilmTypeProps, ReviewTypeProps} from "../../prop-types-validations";
 import FilmCardDetailsTab from "../film-card-details-tab/film-card-details-tab";
 import FilmCardOverviewTab from "../film-card-overview-tab/film-card-overview-tab";
 import FilmCardReviewTab from "../film-card-review-tab/film-card-review-tab";
@@ -87,8 +87,8 @@ class FilmScreenTabs extends PureComponent {
 }
 
 FilmScreenTabs.propTypes = {
-  film: FilmTypes.filmCard,
-  reviews: ReviewTypes.reviewsList
+  film: FilmTypeProps.filmCard,
+  reviews: ReviewTypeProps.reviewsList
 };
 
 export default FilmScreenTabs;

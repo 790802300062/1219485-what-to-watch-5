@@ -8,8 +8,8 @@ import {createStore} from "redux";
 import {reducer} from "./store/reducer";
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
 );
 
 const movieCard = {
@@ -19,12 +19,12 @@ const movieCard = {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App
-      movieCard={movieCard}
-      films={films}
-      reviews={reviews}
-    />
-  </Provider>,
-  document.querySelector(`#root`)
+    <Provider store={store}>
+      <App
+        movieCard={movieCard}
+        films={films}
+        reviews={reviews}
+      />
+    </Provider>,
+    document.querySelector(`#root`)
 );

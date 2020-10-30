@@ -27,12 +27,12 @@ const filmProps = PropTypes.shape({
 
 const filmListProps = PropTypes.arrayOf(filmProps).isRequired;
 
-export const ReviewTypes = {
+export const ReviewTypeProps = {
   reviewsList: reviewsListProps,
   review: reviewProps
 };
 
-export const FilmTypes = {
+export const FilmTypeProps = {
   films: filmListProps,
   filmCard: filmProps,
 };

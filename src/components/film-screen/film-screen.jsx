@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import {FilmTypes, ReviewTypes} from "../../prop-types-validations";
+import {FilmTypeProps, ReviewTypeProps} from "../../prop-types-validations";
 import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
 import FilmScreenTabs from "../film-screen-tabs/film-screen-tabs";
@@ -21,9 +21,8 @@ const FilmScreen = (props) => {
   const {onPlayButtonClick, reviews, films} = props;
 
   const sameGenreFilms = films
-    .filter((film) => film.title !== props.film.title)
-    .filter((film) => film.genre === props.film.genre)
-    .slice(0, SAME_GENRE_FILMS_AMOUNT);
+    .filter((film) => ((film.title !== props.film.title) && (film.genre === props.film.genre)
+    .slice(0, SAME_GENRE_FILMS_AMOUNT)));
 
   return (
     <>
@@ -105,9 +104,9 @@ const FilmScreen = (props) => {
 };
 
 FilmScreen.propTypes = {
-  film: FilmTypes.filmCard,
-  films: FilmTypes.films,
-  reviews: ReviewTypes.reviewsList,
+  film: FilmTypeProps.filmCard,
+  films: FilmTypeProps.films,
+  reviews: ReviewTypeProps.reviewsList,
   onPlayButtonClick: PropTypes.func.isRequired,
 };
 
