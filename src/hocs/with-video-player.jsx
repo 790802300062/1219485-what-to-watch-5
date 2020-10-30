@@ -48,6 +48,7 @@ const withVideoPlayer = (Component) => {
 
     componentWillUnmount() {
       const video = this._videoRef.current;
+      clearTimeout(this._hoverTimerId);
 
       video.onplay = null;
       video.onpause = null;

@@ -1,4 +1,4 @@
-export default [
+const films = [
   {
     title: `The Grand Budapest Hotel`,
     genre: `Drama`,
@@ -705,3 +705,5 @@ export default [
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }
 ];
+
+export default films;

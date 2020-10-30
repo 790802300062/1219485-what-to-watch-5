@@ -7,6 +7,7 @@ import UserBlock from "../user-block/user-block";
 import GenresList from "../genres-list/genres-list";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/actions";
+import ShowMoreButton from "../show-more-button/show-more-button";
 
 const MainPage = (props) => {
   const {
@@ -15,7 +16,9 @@ const MainPage = (props) => {
     films,
     activeGenre,
     initialFilms,
-    onGenreChange
+    onGenreChange,
+    shownFilmsCount,
+    onShowMoreButtonClick
   } = props;
 
   const {
@@ -23,6 +26,8 @@ const MainPage = (props) => {
     genre,
     releaseDate
   } = movieCard;
+
+  const shownFilms = films.slice(0, shownFilmsCount);
 
   return (
     <>
@@ -86,8 +91,12 @@ const MainPage = (props) => {
           />
 
           <FilmCardList
-            films={films}
+            films={shownFilms}
           />
+
+          {shownFilms.length < films.length
+            ? <ShowMoreButton clickHandler={onShowMoreButtonClick} />
+            : null}
 
         </section>
 
@@ -113,13 +122,16 @@ MainPage.propTypes = {
   films: FilmTypes.films,
   initialFilms: FilmTypes.films,
   onGenreChange: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired
+  onPlayButtonClick: PropTypes.func.isRequired,
+  shownFilmsCount: PropTypes.number.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   activeGenre: state.activeGenre,
   films: state.films,
   initialFilms: state.initialFilms,
+  shownFilmsCount: state.shownFilmsCount
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -127,6 +139,10 @@ const mapDispatchToProps = (dispatch) => ({
     const chosenGenre = evt.currentTarget.dataset.genre;
     dispatch(ActionCreator.changeGenre(chosenGenre));
     dispatch(ActionCreator.getFilmsByGenre(chosenGenre));
+    dispatch(ActionCreator.resetShownFilmCards());
+  },
+  onShowMoreButtonClick() {
+    dispatch(ActionCreator.increaseShownFilmCards());
   },
 });
 

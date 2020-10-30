@@ -1,4 +1,4 @@
-import {ALL_GENRES_FILTER} from "../constants";
+import {ALL_GENRES_FILTER, FILMS_AMOUNT_PER_STEP} from "../constants";
 import films from "../mocks/films";
 import {extend, getFilmsFilter} from "../utils";
 import {ActionType} from "./actions";
@@ -6,7 +6,8 @@ import {ActionType} from "./actions";
 const initialState = {
   activeGenre: ALL_GENRES_FILTER,
   films,
-  initialFilms: films
+  initialFilms: films,
+  shownFilmsCount: Math.min(FILMS_AMOUNT_PER_STEP, films.length)
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +16,7 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         activeGenre: action.payload,
       });
+
     case ActionType.GET_FILMS_BY_GENRE:
       const filmsFilter = getFilmsFilter(state.initialFilms);
       const genre = action.payload;
@@ -23,6 +25,17 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         films: filmsByGenre,
       });
+
+    case ActionType.INCREASE_SHOWN_FILMS_AMOUNT:
+      return extend(state, {
+        shownFilmsCount: Math.min(state.shownFilmsCount + FILMS_AMOUNT_PER_STEP, state.initialFilms.length),
+      });
+
+    case ActionType.RESET_SHOWN_FILMS_AMOUNT:
+      return extend(state, {
+        shownFilmsCount: Math.min(FILMS_AMOUNT_PER_STEP, state.initialFilms.length),
+      });
+
     default:
       return state;
   }
