@@ -1,5 +1,5 @@
 import React from "react";
-import {ReviewTypes} from "../../prop-types-validations";
+import {ReviewTypeProps} from "../../prop-types-validations";
 
 const FilmCardReviewTab = (props) => {
   const {reviews} = props;
@@ -27,7 +27,7 @@ const FilmCardReviewTab = (props) => {
 };
 
 FilmCardReviewTab.propTypes = {
-  reviews: ReviewTypes.reviewsList,
+  reviews: ReviewTypeProps.reviewsList,
 };
 
 export default FilmCardReviewTab;

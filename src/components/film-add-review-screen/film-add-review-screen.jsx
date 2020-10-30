@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
 
@@ -118,7 +118,7 @@ class FilmAddReviewScreen extends PureComponent {
 }
 
 FilmAddReviewScreen.propTypes = {
-  film: FilmTypes.filmCard,
+  film: FilmTypeProps.filmCard,
 };
 
 export default FilmAddReviewScreen;

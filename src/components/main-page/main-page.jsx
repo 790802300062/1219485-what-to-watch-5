@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 import FilmCardList from "../film-card-list/film-card-list";
 import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
@@ -119,8 +119,8 @@ MainPage.propTypes = {
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
   activeGenre: PropTypes.string.isRequired,
-  films: FilmTypes.films,
-  initialFilms: FilmTypes.films,
+  films: FilmTypeProps.films,
+  initialFilms: FilmTypeProps.films,
   onGenreChange: PropTypes.func.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   shownFilmsCount: PropTypes.number.isRequired,

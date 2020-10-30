@@ -1,5 +1,5 @@
 import React from "react";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 import FilmCardList from "../film-card-list/film-card-list";
 import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
@@ -36,6 +36,6 @@ const MyListScreen = (props) => {
   );
 };
 
-MyListScreen.propTypes = FilmTypes.films;
+MyListScreen.propTypes = FilmTypeProps.films;
 
 export default MyListScreen;

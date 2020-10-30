@@ -1,5 +1,5 @@
 import React from "react";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 
 const ACTORS_TO_SHOW_AMOUNT = 5;
 
@@ -46,7 +46,7 @@ const FilmCardOverviewTab = (props) => {
 };
 
 FilmCardOverviewTab.propTypes = {
-  film: FilmTypes.filmCard,
+  film: FilmTypeProps.filmCard,
 };
 
 export default FilmCardOverviewTab;

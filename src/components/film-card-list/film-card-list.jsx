@@ -1,5 +1,5 @@
 import React from "react";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 import FilmCard from "../film-card/film-card";
 import withVideoPlayer from "../../hocs/with-video-player";
 
@@ -20,6 +20,6 @@ const FilmCardList = (props) => {
   );
 };
 
-FilmCardList.propTypes = FilmTypes.films;
+FilmCardList.propTypes = FilmTypeProps.films;
 
 export default FilmCardList;

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 
 const CardVideoSize = {
   WIDTH: 280,
@@ -48,7 +48,7 @@ const FilmCard = (props) => {
 };
 
 FilmCard.propTypes = {
-  film: FilmTypes.filmCard,
+  film: FilmTypeProps.filmCard,
   renderPlayer: PropTypes.func.isRequired,
   mouseOverHandler: PropTypes.func.isRequired,
   mouseLeaveHandler: PropTypes.func.isRequired,

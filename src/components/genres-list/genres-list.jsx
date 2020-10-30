@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {getFilmGenres} from "../../utils";
 import {ALL_GENRES_FILTER} from "../../constants";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 
 const GenresList = (props) => {
   const {activeGenre, initialFilms, onGenreChange} = props;
@@ -25,8 +25,8 @@ const GenresList = (props) => {
 
 GenresList.propTypes = {
   activeGenre: PropTypes.string.isRequired,
-  films: FilmTypes.films,
-  initialFilms: FilmTypes.films,
+  films: FilmTypeProps.films,
+  initialFilms: FilmTypeProps.films,
   onGenreChange: PropTypes.func.isRequired,
 };
 

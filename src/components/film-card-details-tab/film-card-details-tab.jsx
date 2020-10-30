@@ -1,5 +1,5 @@
 import React from "react";
-import {FilmTypes} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 
 const getStarringActorsMarkup = (starringActors) => {
   return starringActors.map((actor, i, actors) => (
@@ -54,7 +54,7 @@ const FilmCardDetailsTab = (props) => {
 };
 
 FilmCardDetailsTab.propTypes = {
-  film: FilmTypes.filmCard,
+  film: FilmTypeProps.filmCard,
 };
 
 export default FilmCardDetailsTab;
