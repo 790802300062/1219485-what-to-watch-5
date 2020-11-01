@@ -16,7 +16,7 @@ const VIDEO_STYLES = {
 };
 
 const FilmCard = (props) => {
-  const {renderPlayer, mouseOverHandler, mouseLeaveHandler} = props;
+  const {renderPlayer, mouseOverHandler, mouseLeaveHandler, filmId} = props;
   const {
     title,
     fullSizePoster,
@@ -26,6 +26,7 @@ const FilmCard = (props) => {
   const videoPlayerSettings = {
     fullSizePoster,
     video,
+    filmId,
     width: CardVideoSize.WIDTH,
     height: CardVideoSize.HEIGHT,
     videoStyles: VIDEO_STYLES,
@@ -34,7 +35,9 @@ const FilmCard = (props) => {
   return (
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseOver={mouseOverHandler}
+      onMouseOver={() => {
+        mouseOverHandler(filmId);
+      }}
       onMouseLeave={mouseLeaveHandler}
     >
       <div className="small-movie-card__image">
@@ -52,6 +55,7 @@ FilmCard.propTypes = {
   renderPlayer: PropTypes.func.isRequired,
   mouseOverHandler: PropTypes.func.isRequired,
   mouseLeaveHandler: PropTypes.func.isRequired,
+  filmId: PropTypes.number.isRequired
 };
 
-export default FilmCard;
+export default React.memo(FilmCard);

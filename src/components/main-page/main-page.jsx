@@ -8,6 +8,9 @@ import GenresList from "../genres-list/genres-list";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/actions";
 import ShowMoreButton from "../show-more-button/show-more-button";
+import withActivePlayer from "../../hocs/with-active-player/with-active-player";
+
+const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
 
 const MainPage = (props) => {
   const {
@@ -90,7 +93,7 @@ const MainPage = (props) => {
             onGenreChange={onGenreChange}
           />
 
-          <FilmCardList
+          <FilmCardListWithActivePlayer
             films={shownFilms}
           />
 
