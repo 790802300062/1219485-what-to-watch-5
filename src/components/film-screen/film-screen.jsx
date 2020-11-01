@@ -6,6 +6,11 @@ import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
 import FilmScreenTabs from "../film-screen-tabs/film-screen-tabs";
 import FilmCardList from "../film-card-list/film-card-list";
+import withFilmReviewTabs from "../../hocs/with-film-review-tabs/with-film-review-tabs";
+import withActivePlayer from "../../hocs/with-active-player/with-active-player";
+
+const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
+const FilmScreenWithFilmReviewTabs = withFilmReviewTabs(FilmScreenTabs);
 
 const SAME_GENRE_FILMS_AMOUNT = 4;
 
@@ -78,7 +83,7 @@ const FilmScreen = (props) => {
               <img src={poster} alt={title} width="218" height="327" />
             </div>
 
-            <FilmScreenTabs film={props.film} reviews={reviews} />
+            <FilmScreenWithFilmReviewTabs film={props.film} reviews={reviews} />
           </div>
         </div>
       </section>
@@ -87,7 +92,7 @@ const FilmScreen = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmCardList films={sameGenreFilms}/>
+          <FilmCardListWithActivePlayer films={sameGenreFilms}/>
 
         </section>
 
