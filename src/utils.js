@@ -1,4 +1,6 @@
 import {ALL_GENRES_FILTER} from "./constants";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 
 export const getFilmGenres = (films) => {
   return [...new Set(films.map((film) => film.genre))];
@@ -22,4 +24,28 @@ export const getFilmsFilter = (films) => {
   });
 
   return filmFilter;
+};
+
+dayjs.extend(duration);
+
+export const getDurationTextInHoursAndMinutes = (timeInMinutes) => {
+  const minutesDuration = dayjs.duration(timeInMinutes, `m`);
+  const hours = minutesDuration.hours();
+  const minutes = minutesDuration.minutes();
+
+  return `${hours > 0 ? `${hours}h ` : ``}${minutes}m`;
+};
+
+export const getFullDurationWithColons = (timeInMinutes) => {
+  const minutesDuration = dayjs.duration(timeInMinutes, `m`);
+
+  const hours = minutesDuration.hours();
+  const minutes = minutesDuration.minutes();
+  const seconds = minutesDuration.seconds();
+
+  const hoursText = hours < 10 ? `0${hours}` : hours;
+  const minutesText = minutes < 10 ? `0${minutes}` : minutes;
+  const secondsText = seconds < 10 ? `0${seconds}` : seconds;
+
+  return `${hoursText}:${minutesText}:${secondsText}`;
 };

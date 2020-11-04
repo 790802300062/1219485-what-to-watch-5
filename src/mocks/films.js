@@ -32,7 +32,7 @@ const films = [
       `Ralph Fiennes`,
       `Jeff Goldblum`,
     ],
-    runtime: `2h 50m`,
+    runtime: 170,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -60,7 +60,7 @@ const films = [
       `Tom Hollander`,
       `Mike Myers`,
     ],
-    runtime: `2h 10m`,
+    runtime: 130,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -91,7 +91,7 @@ const films = [
       `Elizabeth Debicki`,
       `David Thewlis`,
     ],
-    runtime: `1h 53m`,
+    runtime: 113,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -115,7 +115,7 @@ const films = [
       `Domhnall Gleeson`,
       `Will Poulter`,
     ],
-    runtime: `2h 36m`,
+    runtime: 156,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -142,7 +142,7 @@ const films = [
       `Javier Bardem`,
       `Josh Brolin`,
     ],
-    runtime: `2h 2m`,
+    runtime: 122,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -176,7 +176,7 @@ const films = [
       `Rade Sherbedgia`,
       `Jason Statham`,
     ],
-    runtime: `1h 42m`,
+    runtime: 102,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -208,7 +208,7 @@ const films = [
       `Jason Schwartzman`,
       `Bob Balaban`,
     ],
-    runtime: `1h 34m`,
+    runtime: 94,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -231,7 +231,7 @@ const films = [
       `Miranda Otto`,
       `Tim Robbins`,
     ],
-    runtime: `1h 56m`,
+    runtime: 116,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -267,7 +267,7 @@ const films = [
       `Ralph Fiennes`,
       `Jeff Goldblum`,
     ],
-    runtime: `2h 50m`,
+    runtime: 170,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -295,7 +295,7 @@ const films = [
       `Tom Hollander`,
       `Mike Myers`,
     ],
-    runtime: `2h 10m`,
+    runtime: 130,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -326,7 +326,7 @@ const films = [
       `Elizabeth Debicki`,
       `David Thewlis`,
     ],
-    runtime: `1h 53m`,
+    runtime: 113,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -350,7 +350,7 @@ const films = [
       `Domhnall Gleeson`,
       `Will Poulter`,
     ],
-    runtime: `2h 36m`,
+    runtime: 156,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -377,7 +377,7 @@ const films = [
       `Javier Bardem`,
       `Josh Brolin`,
     ],
-    runtime: `2h 2m`,
+    runtime: 122,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -411,7 +411,7 @@ const films = [
       `Rade Sherbedgia`,
       `Jason Statham`,
     ],
-    runtime: `1h 42m`,
+    runtime: 102,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -443,7 +443,7 @@ const films = [
       `Jason Schwartzman`,
       `Bob Balaban`,
     ],
-    runtime: `1h 34m`,
+    runtime: 94,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -466,7 +466,7 @@ const films = [
       `Miranda Otto`,
       `Tim Robbins`,
     ],
-    runtime: `1h 56m`,
+    runtime: 116,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -502,7 +502,7 @@ const films = [
       `Ralph Fiennes`,
       `Jeff Goldblum`,
     ],
-    runtime: `2h 50m`,
+    runtime: 170,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -530,7 +530,7 @@ const films = [
       `Tom Hollander`,
       `Mike Myers`,
     ],
-    runtime: `2h 10m`,
+    runtime: 130,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -561,7 +561,7 @@ const films = [
       `Elizabeth Debicki`,
       `David Thewlis`,
     ],
-    runtime: `1h 53m`,
+    runtime: 113,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -585,7 +585,7 @@ const films = [
       `Domhnall Gleeson`,
       `Will Poulter`,
     ],
-    runtime: `2h 36m`,
+    runtime: 156,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -612,7 +612,7 @@ const films = [
       `Javier Bardem`,
       `Josh Brolin`,
     ],
-    runtime: `2h 2m`,
+    runtime: 122,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -646,7 +646,7 @@ const films = [
       `Rade Sherbedgia`,
       `Jason Statham`,
     ],
-    runtime: `1h 42m`,
+    runtime: 102,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -678,7 +678,7 @@ const films = [
       `Jason Schwartzman`,
       `Bob Balaban`,
     ],
-    runtime: `1h 34m`,
+    runtime: 94,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
@@ -701,7 +701,7 @@ const films = [
       `Miranda Otto`,
       `Tim Robbins`,
     ],
-    runtime: `1h 56m`,
+    runtime: 116,
     video: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }
 ];
