@@ -39,7 +39,7 @@ class PlayerScreen extends PureComponent {
     this._playerRef = createRef();
 
     this._handlePlayerButtonClick = this._handlePlayerButtonClick.bind(this);
-    this._handleFullscreenButtonClick = this._handleFullscreenButtonClick.bind(this);
+    this._handleFullscreenButtonClick = this._handleFullScreenButtonClick.bind(this);
     this._handleCurrentTimeChange = this._handleCurrentTimeChange.bind(this);
   }
 
@@ -51,11 +51,11 @@ class PlayerScreen extends PureComponent {
     }
   }
 
-  _handleFullscreenButtonClick() {
+  _handleFullScreenButtonClick() {
     if (this.state.isFullscreen) {
-      this._closeFullscreen();
+      this._closeFullScreen();
     } else {
-      this._openFullscreen();
+      this._openFullScreen();
     }
   }
 
@@ -77,7 +77,7 @@ class PlayerScreen extends PureComponent {
     });
   }
 
-  _openFullscreen() {
+  _openFullScreen() {
     this._playerRef.current.requestFullscreen();
 
     this.setState({
@@ -85,7 +85,7 @@ class PlayerScreen extends PureComponent {
     });
   }
 
-  _closeFullscreen() {
+  _closeFullScreen() {
     document.exitFullscreen();
     this.setState({
       isFullscreen: false,
@@ -93,14 +93,15 @@ class PlayerScreen extends PureComponent {
   }
 
   render() {
+    const {film, onExitButtonClick} = this.props;
+
     const {
       video,
       runtime,
-      fullSizePoster,
+      backgroundImage,
       title,
-    } = this.props.film;
+    } = film;
 
-    const {onExitButtonClick} = this.props;
     const {isPlaying, currentTimeInSeconds} = this.state;
     const playerPlayButtonTemplate = getPlayerPlayButtonTemplate(isPlaying);
 
@@ -110,7 +111,7 @@ class PlayerScreen extends PureComponent {
           isPlaying={isPlaying}
           additionalClasses="player__video"
           src={video}
-          poster={fullSizePoster}
+          poster={backgroundImage}
           onCurrentTimeChange={this._handleCurrentTimeChange}
         />
 
@@ -140,7 +141,7 @@ class PlayerScreen extends PureComponent {
             <button
               type="button"
               className="player__full-screen"
-              onClick={this._handleFullscreenButtonClick}
+              onClick={this._handleFullScreenButtonClick}
             >
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>

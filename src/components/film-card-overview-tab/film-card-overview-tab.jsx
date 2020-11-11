@@ -1,5 +1,6 @@
 import React from "react";
 import {FilmTypeProps} from "../../prop-types-validations";
+import {getRatingDescription} from "../../utils";
 
 const ACTORS_TO_SHOW_AMOUNT = 5;
 
@@ -16,13 +17,13 @@ const FilmCardOverviewTab = (props) => {
   const {
     description,
     rating,
-    ratingDescription,
     ratingsCount,
     director,
     starring,
   } = props.film;
 
   const starringActorsForOverviewTab = getStarringForOverviewTab(starring);
+  const ratingDescription = getRatingDescription(rating);
 
   return (
     <>
