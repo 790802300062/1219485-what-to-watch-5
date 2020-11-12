@@ -59,11 +59,11 @@ class PlayerScreen extends PureComponent {
     }
   }
 
-  _handleCurrentTimeChange(currentTimeInSeconds) {
+  /*_handleCurrentTimeChange(currentTimeInSeconds) {
     this.setState({
       currentTimeInSeconds
     });
-  }
+  }*/
 
   _playVideo() {
     this.setState({
@@ -76,6 +76,7 @@ class PlayerScreen extends PureComponent {
       isPlaying: false,
     });
   }
+
 
   _openFullScreen() {
     this._playerRef.current.requestFullScreen();
