@@ -8,6 +8,7 @@ import FilmScreenTabs from "../film-screen-tabs/film-screen-tabs";
 import FilmCardList from "../film-card-list/film-card-list";
 import withFilmReviewTabs from "../../hocs/with-film-review-tabs/with-film-review-tabs";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player";
+import {AppRoute} from "../../constants";
 
 const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
 const FilmScreenWithFilmReviewTabs = withFilmReviewTabs(FilmScreenTabs);
@@ -15,26 +16,28 @@ const FilmScreenWithFilmReviewTabs = withFilmReviewTabs(FilmScreenTabs);
 const SAME_GENRE_FILMS_AMOUNT = 4;
 
 const FilmScreen = (props) => {
+  const {onPlayButtonClick, reviews, film, films} = props;
+
   const {
+    id,
     title,
     genre,
     releaseYear,
-    poster,
-    fullSizePoster
-  } = props.film;
-
-  const {onPlayButtonClick, reviews, films} = props;
+    posterImage,
+    backgroundImage,
+    backgroundColor
+  } = film;
 
   const sameGenreFilms = films
-    .filter((film) => ((film.title !== props.film.title) && (film.genre === props.film.genre)
-    .slice(0, SAME_GENRE_FILMS_AMOUNT)));
+  .filter((filmItem) => (filmItem.title !== film.title) && (filmItem.genre === film.genre))
+  .slice(0, SAME_GENRE_FILMS_AMOUNT);
 
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={fullSizePoster} alt={title} />
+            <img src={backgroundImage} alt={title} style={{backgroundColor}}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -69,7 +72,7 @@ const FilmScreen = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to="/films/1/review" className="btn movie-card__button">
+                <Link to={`${AppRoute.FILMS}/${id}/review`} className="btn movie-card__button">
                   Add review
                 </Link>
               </div>
@@ -80,10 +83,10 @@ const FilmScreen = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={poster} alt={title} width="218" height="327" />
+              <img src={posterImage} alt={title} width="218" height="327" />
             </div>
 
-            <FilmScreenWithFilmReviewTabs film={props.film} reviews={reviews} />
+            <FilmScreenWithFilmReviewTabs film={film} reviews={reviews} />
           </div>
         </div>
       </section>

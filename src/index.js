@@ -1,15 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
-import films from "./mocks/films";
 import reviews from "./mocks/reviews";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import {reducer} from "./store/reducer";
+import rootReducer from "./store/reducers/root-reducer";
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
+import {createAPI} from "./services/api";
+import {checkAuth, fetchFilmList} from "./store/api-actions";
+import {requireAuthorization} from "./store/actions";
+import {AuthorizationStatus} from "./constants";
+import {composeWithDevTools} from "redux-devtools-extension";
+import {redirect} from "./store/middlewares/redirect";
+
+const api = createAPI(
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
+);
 
 const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    rootReducer,
+    composeWithDevTools(
+      applyMiddleware(thunk.withExtraArgument(api)),
+      applyMiddleware(redirect)
+    )
 );
 
 const movieCard = {
@@ -18,13 +31,18 @@ const movieCard = {
   releaseDate: 2014,
 };
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App
-        movieCard={movieCard}
-        films={films}
-        reviews={reviews}
-      />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+Promise.all([
+  store.dispatch(fetchFilmList()),
+  store.dispatch(checkAuth())
+])
+.then(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <App
+          movieCard={movieCard}
+          reviews={reviews}
+        />
+      </Provider>,
+      document.querySelector(`#root`)
+  );
+});

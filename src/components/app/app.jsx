@@ -1,6 +1,6 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
 import {FilmTypeProps, ReviewTypeProps} from "../../prop-types-validations";
 import MainPage from "../main-page/main-page";
 import AuthScreen from "../auth-screen/auth-screen";
@@ -8,54 +8,87 @@ import MyListScreen from "../my-list-screen/my-list-screen";
 import FilmScreen from "../film-screen/film-screen";
 import FilmAddReviewScreen from "../film-add-review-screen/film-add-review-screen";
 import PlayerScreen from "../player-screen/player-screen";
+import {connect} from "react-redux";
+import {getFilmById} from "../../utils";
+import PrivateRoute from "../private-route/private-route";
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants";
 
 const App = (props) => {
   const {movieCard, films, reviews} = props;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
+
         <Route exact
-          path="/"
+          path={AppRoute.ROOT}
           render={({history}) => (
             <MainPage
               movieCard={movieCard}
-              onPlayButtonClick={() => history.push(`/player/0`)}
+              onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/1`)}
             />
           )}
         />
-        <Route path="/login" exact>
+
+        <Route path={AppRoute.LOGIN} exact>
           <AuthScreen />
         </Route>
-        <Route path="/mylist" exact>
-          <MyListScreen
-            films={films}
-          />
-        </Route>
-        <Route exact
-          path="/films/:id"
-          render={({history}) => (
-            <FilmScreen
-              film={films[1]}
-              films={films}
-              reviews={reviews}
-              onPlayButtonClick={() => history.push(`/player/1`)}
-            />
+
+        <PrivateRoute
+          path={AppRoute.MY_LIST}
+          exact
+          render={() => (
+            <MyListScreen />
           )}
         />
-        <Route path="/films/:id/review" exact>
-          <FilmAddReviewScreen
-            film={films[1]}
-          />
-        </Route>
+
         <Route exact
-          path="/player/:id"
-          render={({history}) => (
-            <PlayerScreen
-              film={films[0]}
-              onExitButtonClick={() => history.push(`/`)}
-            />
-          )}
+          path={`${AppRoute.FILMS}/:id`}
+          render={({history, match}) => {
+            const filmId = match.params.id;
+            const film = getFilmById(films, filmId);
+
+            return (
+              <FilmScreen
+                film={film}
+                films={films}
+                reviews={reviews}
+                onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
+              />
+            );
+          }}
         />
+
+        <PrivateRoute exact
+          path={`${AppRoute.FILMS}/:id/review`}
+          render={({match}) => {
+            const filmId = match.params.id;
+            const film = getFilmById(films, filmId);
+
+            return (
+              <FilmAddReviewScreen
+                film={film}
+              />
+            );
+          }}
+        />
+
+        <Route exact
+          path={`${AppRoute.PLAYER}/:id`}
+          render={({history, match}) => {
+            const filmId = match.params.id;
+            const film = getFilmById(films, filmId);
+
+            return (
+              <PlayerScreen
+                film={film}
+                onExitButtonClick={() => history.push(AppRoute.ROOT)}
+              />
+            );
+          }}
+        />
+
       </Switch>
     </BrowserRouter>
   );
@@ -71,4 +104,9 @@ App.propTypes = {
   reviews: ReviewTypeProps.reviewsList,
 };
 
-export default App;
+const mapStateToProps = ({DATA}) => ({
+  films: DATA.films,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);

@@ -5,8 +5,8 @@ import {ALL_GENRES_FILTER} from "../../constants";
 import {FilmTypeProps} from "../../prop-types-validations";
 
 const GenresList = (props) => {
-  const {activeGenre, initialFilms, onGenreChange} = props;
-  const genres = [ALL_GENRES_FILTER, ...getFilmGenres(initialFilms)];
+  const {activeGenre, films, onGenreChange} = props;
+  const genres = [ALL_GENRES_FILTER, ...getFilmGenres(films)];
 
   return (
     <ul className="catalog__genres-list">
@@ -26,7 +26,6 @@ const GenresList = (props) => {
 GenresList.propTypes = {
   activeGenre: PropTypes.string.isRequired,
   films: FilmTypeProps.films,
-  initialFilms: FilmTypeProps.films,
   onGenreChange: PropTypes.func.isRequired,
 };
 
