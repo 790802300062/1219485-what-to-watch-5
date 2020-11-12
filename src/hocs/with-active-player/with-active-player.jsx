@@ -59,7 +59,7 @@ const withActivePlayer = (Component) => {
               width={width}
               height={height}
               videoStyles={videoStyles}
-              resetAfterPause
+              isResetAfterPause
               isMuted
             />
           )}

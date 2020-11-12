@@ -1,7 +1,8 @@
-import React, {PureComponent} from "react";
+import React, {createRef, PureComponent} from "react";
 import PropTypes from "prop-types";
 import {FilmTypeProps} from "../../prop-types-validations";
 import VideoPlayer from "../video-player/video-player";
+import PlayerTimeControls from "../player-time-controls/player-time-controls";
 
 const getPlayerPlayButtonTemplate = (isPlaying) => {
   if (isPlaying) {
@@ -30,18 +31,38 @@ class PlayerScreen extends PureComponent {
     super(props);
 
     this.state = {
+      isFullScreen: false,
       isPlaying: false,
+      currentTimeInSeconds: 0
     };
 
+    this._playerRef = createRef();
+
     this._handlePlayerButtonClick = this._handlePlayerButtonClick.bind(this);
+    this._handleFullscreenButtonClick = this._handleFullScreenButtonClick.bind(this);
+    this._handleCurrentTimeChange = this._handleCurrentTimeChange.bind(this);
   }
 
   _handlePlayerButtonClick() {
-    if (!this.state.isPlaying) {
-      return this._playVideo()
+    if (this.state.isPlaying) {
+      this._pauseVideo();
+    } else {
+      this._playVideo();
     }
+  }
 
-    return this._pauseVideo;
+  _handleFullScreenButtonClick() {
+    if (this.state.isFullScreen) {
+      this._closeFullScreen();
+    } else {
+      this._openFullScreen();
+    }
+  }
+
+  _handleCurrentTimeChange(currentTimeInSeconds) {
+    this.setState({
+      currentTimeInSeconds
+    });
   }
 
   _playVideo() {
@@ -56,16 +77,32 @@ class PlayerScreen extends PureComponent {
     });
   }
 
+  _openFullScreen() {
+    this._playerRef.current.requestFullScreen();
+
+    this.setState({
+      isFullScreen: true,
+    });
+  }
+
+  _closeFullScreen() {
+    document.exitFullScreen();
+    this.setState({
+      isFullScreen: false,
+    });
+  }
+
   render() {
+    const {film, onExitButtonClick} = this.props;
+
     const {
       video,
       runtime,
-      fullSizePoster,
+      backgroundImage,
       title,
-    } = this.props.film;
+    } = film;
 
-    const {onExitButtonClick} = this.props;
-    const {isPlaying} = this.state;
+    const {isPlaying, currentTimeInSeconds} = this.state;
     const playerPlayButtonTemplate = getPlayerPlayButtonTemplate(isPlaying);
 
     return (
@@ -74,7 +111,8 @@ class PlayerScreen extends PureComponent {
           isPlaying={isPlaying}
           additionalClasses="player__video"
           src={video}
-          poster={fullSizePoster}
+          poster={backgroundImage}
+          onCurrentTimeChange={this._handleCurrentTimeChange}
         />
 
         <button
@@ -86,13 +124,10 @@ class PlayerScreen extends PureComponent {
         </button>
 
         <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
-            </div>
-            <div className="player__time-value">{runtime}</div>
-          </div>
+          <PlayerTimeControls
+            runtime={runtime}
+            currentTimeInSeconds={currentTimeInSeconds}
+          />
           <div className="player__controls-row">
             <button
               type="button"
@@ -103,7 +138,11 @@ class PlayerScreen extends PureComponent {
             </button>
             <div className="player__name">{title}</div>
 
-            <button type="button" className="player__full-screen">
+            <button
+              type="button"
+              className="player__full-screen"
+              onClick={this._handleFullScreenButtonClick}
+            >
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>

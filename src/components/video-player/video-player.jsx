@@ -23,14 +23,14 @@ class VideoPlayer extends PureComponent {
 
   componentDidUpdate() {
     const video = this._videoRef.current;
-    const {resetAfterPause} = this.props;
+    const {isResetAfterPause} = this.props;
 
     if (this.props.isPlaying) {
       video.play();
     } else {
       video.pause();
 
-      if (resetAfterPause) {
+      if (isResetAfterPause) {
         video.load();
       }
     }
@@ -71,7 +71,7 @@ VideoPlayer.propTypes = {
   height: PropTypes.number,
   videoStyles: PropTypes.object,
   additionalClasses: PropTypes.string,
-  resetAfterPause: PropTypes.bool,
+  isResetAfterPause: PropTypes.bool,
   onCurrentTimeChange: PropTypes.func
 };
 

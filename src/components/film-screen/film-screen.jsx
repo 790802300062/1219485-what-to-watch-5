@@ -28,11 +28,11 @@ const FilmScreen = (props) => {
     backgroundColor
   } = film;
 
-  const sameGenreFilms = films
+  /*const sameGenreFilms = films
     .filter((filmItem) => ((filmItem.title !== film.title) && (filmItem.genre === film.genre)
     .slice(0, SAME_GENRE_FILMS_AMOUNT)));
 
-  console.log(sameGenreFilms);
+  console.log(sameGenreFilms);*/
 
   return (
     <>
