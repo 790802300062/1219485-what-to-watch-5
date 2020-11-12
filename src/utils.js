@@ -55,53 +55,40 @@ export const getFilmById = (films, id) => {
 };
 
 export const getRatingDescription = (rating) => {
-  let ratingDescription = ``;
-
-  if (rating >= 0 && rating < 3) {
-    ratingDescription = Rating.BAD;
-  } else if (rating >= 3 && rating < 5) {
-    ratingDescription = Rating.NORMAL;
-  } else if (rating >= 5 && rating < 8) {
-    ratingDescription = Rating.GOOD;
-  } else if (rating >= 8 && rating < 10) {
-    ratingDescription = Rating.VERY_GOOD;
-  } else if (rating === 10) {
-    ratingDescription = Rating.AWESOME;
-  }
-
-  return ratingDescription;
-};
+  switch (rating) {
+    case (rating >= 0 && rating < 3):
+      return Rating.BAD;
+    case (rating >= 3 && rating < 5):
+      return Rating.NORMAL;
+    case (rating >= 5 && rating < 8):
+      return Rating.GOOD;
+    case (rating >= 8 && rating < 10):
+      return Rating.VERY_GOOD;
+    default:
+      return Rating.AWESOME;
+    }
+}
 
 export const adaptFilmToClient = (film) => {
-  const adaptedFilm = Object.assign(
-      {},
-      film,
-      {
-        title: film.name,
-        releaseYear: film.released,
-        previewImage: film.preview_image,
-        posterImage: film.poster_image,
-        ratingsCount: film.scores_count,
-        runtime: film.run_time,
-        video: film.video_link,
-        backgroundColor: film.background_color,
-        backgroundImage: film.background_image,
-        isFavorite: film.is_favorite,
-        videoPreview: film.preview_video_link,
-      }
-  );
-
-  delete adaptedFilm.background_color;
-  delete adaptedFilm.background_image;
-  delete adaptedFilm.is_favorite;
-  delete adaptedFilm.name;
-  delete adaptedFilm.poster_image;
-  delete adaptedFilm.preview_image;
-  delete adaptedFilm.preview_video_link;
-  delete adaptedFilm.released;
-  delete adaptedFilm.run_time;
-  delete adaptedFilm.scores_count;
-  delete adaptedFilm.video_link;
+  const adaptedFilm = {
+    id: film.id,
+    description: film.description,
+    rating: film.rating,
+    director: film.director,
+    starring: film.starring,
+    genre: film.genre,
+    title: film.name,
+    releaseYear: film.released,
+    previewImage: film.preview_image,
+    posterImage: film.poster_image,
+    ratingsCount: film.scores_count,
+    runtime: film.run_time,
+    video: film.video_link,
+    backgroundColor: film.background_color,
+    backgroundImage: film.background_image,
+    isFavorite: film.is_favorite,
+    videoPreview: film.preview_video_link,
+  };
 
   return adaptedFilm;
 };

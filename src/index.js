@@ -7,17 +7,21 @@ import rootReducer from "./store/reducers/root-reducer";
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
-import {fetchFilmList} from "./store/api-actions";
+import {checkAuth, fetchFilmList} from "./store/api-actions";
+import {requireAuthorization} from "./store/actions";
+import {AuthorizationStatus} from "./constants";
 import {composeWithDevTools} from "redux-devtools-extension";
+import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(
-
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+      applyMiddleware(thunk.withExtraArgument(api)),
+      applyMiddleware(redirect)
     )
 );
 
@@ -28,7 +32,8 @@ const movieCard = {
 };
 
 Promise.all([
-  store.dispatch(fetchFilmList())
+  store.dispatch(fetchFilmList()),
+  store.dispatch(checkAuth())
 ])
 .then(() => {
   ReactDOM.render(

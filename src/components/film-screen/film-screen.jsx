@@ -8,6 +8,7 @@ import FilmScreenTabs from "../film-screen-tabs/film-screen-tabs";
 import FilmCardList from "../film-card-list/film-card-list";
 import withFilmReviewTabs from "../../hocs/with-film-review-tabs/with-film-review-tabs";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player";
+import {AppRoute} from "../../constants";
 
 const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
 const FilmScreenWithFilmReviewTabs = withFilmReviewTabs(FilmScreenTabs);
@@ -30,6 +31,8 @@ const FilmScreen = (props) => {
   const sameGenreFilms = films
     .filter((filmItem) => ((filmItem.title !== film.title) && (filmItem.genre === film.genre)
     .slice(0, SAME_GENRE_FILMS_AMOUNT)));
+
+  console.log(sameGenreFilms);
 
   return (
     <>
@@ -71,7 +74,7 @@ const FilmScreen = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn movie-card__button">
+                <Link to={`${AppRoute.FILMS}/${id}/review`} className="btn movie-card__button">
                   Add review
                 </Link>
               </div>
