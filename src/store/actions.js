@@ -11,11 +11,11 @@ export const changeGenre = (genre) => ({
 });
 
 export const increaseShownFilmCards = () => ({
-  type: ActionType.INCREASE_SHOWN_FILM_CARDS,
+  type: ActionType.INCREASE_SHOWN_FILMS_AMOUNT,
 });
 
 export const resetShownFilmCards = () => ({
-  type: ActionType.RESET_SHOWN_FILM_CARDS,
+  type: ActionType.RESET_SHOWN_FILMS_AMOUNT,
 });
 
 export const loadFilms = (films) => ({
