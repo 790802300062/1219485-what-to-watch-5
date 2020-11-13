@@ -1,11 +1,13 @@
 import {ActionType} from "../../actions";
-import {extend, adaptFilmToClient} from "../../../utils";
+import {extend, adaptFilmToClient, adaptReviewToClient} from "../../../utils";
 import {ALL_GENRES_FILTER, FILMS_AMOUNT_PER_STEP} from "../../../constants";
 
 const initialState = {
   activeGenre: ALL_GENRES_FILTER,
   films: [],
-  shownFilmsCount: 0
+  shownFilmsCount: 0,
+  isLoading: true,
+  currentFilmReviews: []
 };
 
 const filmsData = (state = initialState, action) => {
@@ -31,7 +33,17 @@ const filmsData = (state = initialState, action) => {
 
       return extend(state, {
         films,
-        shownFilmsCount: Math.min(FILMS_AMOUNT_PER_STEP, films.length)
+        shownFilmsCount: Math.min(FILMS_AMOUNT_PER_STEP, films.length),
+        isLoading: false
+      });
+
+    case ActionType.LOAD_REVIEWS_FOR_FILM:
+      const payloadReviews = action.payload.reviews;
+
+      const reviews = payloadReviews.map((review) => adaptReviewToClient(review));
+
+      return extend(state, {
+        currentFilmReviews: reviews
       });
 
     default:
