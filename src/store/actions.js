@@ -4,7 +4,8 @@ export const ActionType = {
   RESET_SHOWN_FILMS_AMOUNT: `RESET_SHOWN_FILMS_AMOUNT`,
   LOAD_FILMS: `LOAD_FILMS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  LOAD_REVIEWS_FOR_FILM: `LOAD_REVIEWS_FOR_FILM`,
 };
 
 export const changeGenre = (genre) => ({
@@ -33,4 +34,12 @@ export const requireAuthorization = (status) => ({
 export const redirectToRoute = (url) => ({
   type: ActionType.REDIRECT_TO_ROUTE,
   payload: url,
+});
+
+export const loadReviewsForFilm = (reviews, filmId) => ({
+  type: ActionType.LOAD_REVIEWS_FOR_FILM,
+  payload: {
+    reviews,
+    filmId
+  }
 });

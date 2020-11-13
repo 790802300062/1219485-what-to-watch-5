@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
-import {FilmTypeProps, ReviewTypeProps} from "../../prop-types-validations";
+import {FilmTypeProps} from "../../prop-types-validations";
 import MainPage from "../main-page/main-page";
 import AuthScreen from "../auth-screen/auth-screen";
 import MyListScreen from "../my-list-screen/my-list-screen";
@@ -13,86 +13,115 @@ import {getFilmById} from "../../utils";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants";
+import {getFilms, getIsLoading} from "../../store/selectors";
+import {fetchFilmList} from "../../store/api-actions";
+import Preloader from "../preloader/preloader";
 
-const App = (props) => {
-  const {movieCard, films, reviews} = props;
+class App extends PureComponent {
+  componentDidMount() {
+    this.props.loadFilmList();
+  }
 
-  return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
+  render() {
+    const {movieCard, films, isLoading} = this.props;
 
-        <Route exact
-          path={AppRoute.ROOT}
-          render={({history}) => (
-            <MainPage
-              movieCard={movieCard}
-              onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/1`)}
-            />
-          )}
-        />
+    if (isLoading) {
+      return <Preloader />;
+    }
 
-        <Route path={AppRoute.LOGIN} exact>
-          <AuthScreen />
-        </Route>
+    return (
+      <BrowserRouter history={browserHistory}>
+        <Switch>
 
-        <PrivateRoute
-          path={AppRoute.MY_LIST}
-          exact
-          render={() => (
-            <MyListScreen />
-          )}
-        />
-
-        <Route exact
-          path={`${AppRoute.FILMS}/:id`}
-          render={({history, match}) => {
-            const filmId = match.params.id;
-            const film = getFilmById(films, filmId);
-
-            return (
-              <FilmScreen
-                film={film}
-                films={films}
-                reviews={reviews}
-                onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
+          <Route exact
+            path={AppRoute.ROOT}
+            render={({history}) => (
+              <MainPage
+                movieCard={movieCard}
+                onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/1`)}
               />
-            );
-          }}
-        />
+            )}
+          />
 
-        <PrivateRoute exact
-          path={`${AppRoute.FILMS}/:id/review`}
-          render={({match}) => {
-            const filmId = match.params.id;
-            const film = getFilmById(films, filmId);
+          <Route path={AppRoute.LOGIN} exact>
+            <AuthScreen />
+          </Route>
 
-            return (
-              <FilmAddReviewScreen
-                film={film}
-              />
-            );
-          }}
-        />
+          <PrivateRoute
+            path={AppRoute.MY_LIST}
+            exact
+            render={() => (
+              <MyListScreen />
+            )}
+          />
 
-        <Route exact
-          path={`${AppRoute.PLAYER}/:id`}
-          render={({history, match}) => {
-            const filmId = match.params.id;
-            const film = getFilmById(films, filmId);
+          <Route exact
+            path={`${AppRoute.FILMS}/:id`}
+            render={
+              ({history, match}) => {
+                const filmId = match.params.id;
+                const film = getFilmById(films, filmId);
 
-            return (
-              <PlayerScreen
-                film={film}
-                onExitButtonClick={() => history.push(AppRoute.ROOT)}
-              />
-            );
-          }}
-        />
+                return (
+                  <FilmScreen
+                    film={film}
+                    films={films}
+                    onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
+                  />
+                );
+              }
+            }
+          />
 
-      </Switch>
-    </BrowserRouter>
-  );
-};
+          <PrivateRoute exact
+            path={`${AppRoute.FILMS}/:id/review`}
+            render={
+              ({match}) => {
+                const filmId = match.params.id;
+                const film = getFilmById(films, filmId);
+
+                return (
+                  <FilmAddReviewScreen
+                    film={film}
+                  />
+                );
+              }
+            }
+          />
+
+          <Route exact
+            path={`${AppRoute.PLAYER}/:id`}
+            render={
+              ({history, match}) => {
+                const filmId = match.params.id;
+                const film = getFilmById(films, filmId);
+
+                return (
+                  <PlayerScreen
+                    film={film}
+                    onExitButtonClick={() => history.push(AppRoute.ROOT)}
+                  />
+                );
+              }
+            }
+          />
+
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  isLoading: getIsLoading(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFilmList() {
+    dispatch(fetchFilmList());
+  }
+});
 
 App.propTypes = {
   movieCard: PropTypes.shape({
@@ -101,12 +130,10 @@ App.propTypes = {
     releaseDate: PropTypes.number.isRequired,
   }).isRequired,
   films: FilmTypeProps.films,
-  reviews: ReviewTypeProps.reviewsList,
+  loadFilmList: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  films: DATA.films,
-});
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

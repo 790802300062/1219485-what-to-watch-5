@@ -5,6 +5,8 @@ export const getFilms = (state) => state.DATA.films;
 export const getActiveGenre = (state) => state.DATA.activeGenre;
 export const getShownFilmsCount = (state) => state.DATA.shownFilmsCount;
 export const getAuthorizationStatus = (state) => state.USER.authorizationStatus;
+export const getIsLoading = (state) => state.DATA.isLoading;
+export const getReviews = (state) => state.DATA.currentFilmReviews;
 
 export const getFilmsByGenre = createSelector(
     getFilms,

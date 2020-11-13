@@ -9,7 +9,7 @@ const AddReviewWithForm = withReviewForm(AddReviewBlock);
 
 const FilmAddReviewScreen = (props) => {
   const {film} = props;
-  const {title, posterImage, backgroundImage} = film;
+  const {id, title, posterImage, backgroundImage} = film;
 
   return (
     <section className="movie-card movie-card--full">
@@ -42,7 +42,7 @@ const FilmAddReviewScreen = (props) => {
         </div>
       </div>
 
-      <AddReviewWithForm />
+      <AddReviewWithForm filmId={id} />
     </section>
   );
 };
