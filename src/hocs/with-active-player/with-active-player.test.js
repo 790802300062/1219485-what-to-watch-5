@@ -1,23 +1,24 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
+import {filmListMock} from "../../test-data/test-data";
 import withActivePlayer from "./with-active-player";
 
-const MockComponent = (props) => {
-  const {children} = props;
+const {previewImage, videoPreview} = filmListMock[0];
 
-  return (
-    <div>
-      {children}
-    </div>
-  );
+const mockVideoPlayerSettings = {
+  previewImage,
+  videoPreview,
+  width: 280,
+  height: 175,
+  filmId: 1,
 };
 
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+const MockComponent = (props) => {
+  return (
+    <div>
+      {props.renderPlayer(mockVideoPlayerSettings)}
+    </div>
+  );
 };
 
 const MockComponentWrapped = withActivePlayer(MockComponent);
@@ -25,9 +26,12 @@ const MockComponentWrapped = withActivePlayer(MockComponent);
 it(`renders withActivePlayer`, () => {
   const tree = renderer
     .create(
-        <MockComponentWrapped>
-          <React.Fragment />
-        </MockComponentWrapped>
+        <MockComponentWrapped />,
+        {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     )
     .toJSON();
 

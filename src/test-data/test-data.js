@@ -1,3 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
+
 export const noop = () => {};
 
 export const movieCard = {
@@ -198,7 +201,6 @@ export const filmListMock = [
     videoPreview: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }
 ];
-
 export const mockReviews = [
   {
     text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
@@ -232,3 +234,21 @@ export const mockReviews = [
     date: `December 20, 2016`,
   }
 ];
+
+const MockComponent = (props) => {
+  const {children} = props;
+  return (
+    <div>
+      {children}
+    </div>
+  );
+};
+
+MockComponent.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+};
+
+export {MockComponent};

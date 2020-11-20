@@ -9,10 +9,10 @@ export const getIsLoading = (state) => state.DATA.isLoading;
 export const getReviews = (state) => state.DATA.currentFilmReviews;
 
 export const getFavoriteFilms = createSelector(
-  getFilms,
-  (films) => {
-    return films.filter((film) => film.isFavorite);
-  }
+    getFilms,
+    (films) => {
+      return films.filter((film) => film.isFavorite);
+    }
 );
 
 export const getFilmsByGenre = createSelector(
