@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import renderer from "react-test-renderer";
 import {filmListMock} from "../../test-data/test-data";
 import withActivePlayer from "./with-active-player";
@@ -37,3 +38,8 @@ it(`renders withActivePlayer`, () => {
 
   expect(tree).toMatchSnapshot();
 });
+
+MockComponent.propTypes = {
+  renderPlayer: PropTypes.func.isRequired,
+};
+
