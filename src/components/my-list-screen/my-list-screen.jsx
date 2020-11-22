@@ -5,7 +5,7 @@ import LogoBlock from "../logo-block/logo-block";
 import UserBlock from "../user-block/user-block";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player";
 import {connect} from "react-redux";
-import {getFilms} from "../../store/selectors";
+import {getFavoriteFilms} from "../../store/selectors";
 
 const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
 
@@ -44,7 +44,7 @@ const MyListScreen = (props) => {
 MyListScreen.propTypes = FilmTypeProps.films;
 
 const mapStateToProps = (state) => ({
-  films: getFilms(state),
+  films: getFavoriteFilms(state),
 });
 
 export {MyListScreen};

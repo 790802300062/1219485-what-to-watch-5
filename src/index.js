@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
-import reviews from "./mocks/reviews";
 import {Provider} from "react-redux";
 import rootReducer from "./store/reducers/root-reducer";
 import {applyMiddleware, createStore} from "redux";
@@ -39,7 +38,6 @@ Promise.all([
       <Provider store={store}>
         <App
           movieCard={movieCard}
-          reviews={reviews}
         />
       </Provider>,
       document.querySelector(`#root`)
