@@ -1,6 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MockComponent} from "../../test-data/test-data";
 import withReviewForm from "./with-review-form";
 import {MockComponentWithChildren} from "../../test-data/components";
 

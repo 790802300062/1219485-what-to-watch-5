@@ -56,13 +56,13 @@ describe(`withActivePlayer interactions`, () => {
         <MockComponentWrapped />
     );
 
-  const videoElement = wrapper.find(`div`);
-  videoElement.simulate(`mouseover`);
+    const videoElement = wrapper.find(`div`);
+    videoElement.simulate(`mouseover`);
 
-  jest.runAllTimers();
-  expect(wrapper.state().activeItem).toEqual(1);
+    jest.runAllTimers();
+    expect(wrapper.state().activeItem).toEqual(1);
 
-  videoElement.simulate(`mouseleave`);
-  expect(wrapper.state().activeItem).toEqual(-1);
+    videoElement.simulate(`mouseleave`);
+    expect(wrapper.state().activeItem).toEqual(-1);
   });
 });
