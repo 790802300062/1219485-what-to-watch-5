@@ -1,9 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MockComponent} from "../../test-data/test-data";
+import {MockComponentWithChildren} from "../../test-data/components";
 import withFilmReviewTabs from "./with-film-review-tabs";
 
-const MockComponentWrapped = withFilmReviewTabs(MockComponent);
+const MockComponentWrapped = withFilmReviewTabs(MockComponentWithChildren);
 it(`renders withFilmReviewTabs`, () => {
   const tree = renderer
     .create(

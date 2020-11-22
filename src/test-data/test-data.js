@@ -1,6 +1,3 @@
-import React from "react";
-import PropTypes from "prop-types";
-
 export const noop = () => {};
 
 export const movieCard = {
@@ -234,21 +231,3 @@ export const mockReviews = [
     date: `December 20, 2016`,
   }
 ];
-
-const MockComponent = (props) => {
-  const {children} = props;
-  return (
-    <div>
-      {children}
-    </div>
-  );
-};
-
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-};
-
-export {MockComponent};
