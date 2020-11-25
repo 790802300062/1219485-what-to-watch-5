@@ -1,63 +1,35 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
-import {FilmTypeProps} from "../../prop-types-validations";
-import {AppRoute} from "../../constants";
+import {Path} from "../../constants";
+import {filmPropTypesShape} from '../../utils/props-validation';
+import AddToListButton from '../add-to-list-button/add-to-list-button';
+import PlayButton from '../play-button/play-button';
 
-const CardVideoSize = {
-  WIDTH: 280,
-  HEIGHT: 175,
-};
-
-const VIDEO_STYLES = {
-  verticalAlign: `top`,
-  width: `100%`,
-  height: `100%`,
-  objectFit: `cover`,
-};
-
-const FilmCard = (props) => {
-  const {renderPlayer, mouseOverHandler, mouseLeaveHandler, filmId} = props;
-  const {
-    id,
-    title,
-    previewImage,
-    videoPreview,
-  } = props.film;
-
-  const videoPlayerSettings = {
-    previewImage,
-    videoPreview,
-    filmId,
-    width: CardVideoSize.WIDTH,
-    height: CardVideoSize.HEIGHT,
-    videoStyles: VIDEO_STYLES,
-  };
+const FilmCard = (props) =>{
+  const {film, isUserLogged} = props;
+  const {title, genre, year, id, isFavorite} = film;
 
   return (
-    <article
-      className="small-movie-card catalog__movies-card"
-      onMouseOver={() => {
-        mouseOverHandler(filmId);
-      }}
-      onMouseLeave={mouseLeaveHandler}
-    >
-      <div className="small-movie-card__image">
-        {renderPlayer(videoPlayerSettings)}
+    <div className="movie-card__desc">
+      <h2 className="movie-card__title">{title}</h2>
+      <p className="movie-card__meta">
+        <span className="movie-card__genre">{genre}</span>
+        <span className="movie-card__year">{year}</span>
+      </p>
+
+      <div className="movie-card__buttons">
+        <PlayButton id = {id}/>
+        <AddToListButton id = {id} isFavorite = {isFavorite}/>
+        {isUserLogged && <Link className="btn movie-card__button" to={Path.addReview(id)}>Add review</Link>}
       </div>
-      <h3 className="small-movie-card__title">
-        <Link to={`${AppRoute.FILMS}/${id}`} className="small-movie-card__link">{title}</Link>
-      </h3>
-    </article>
+    </div>
   );
 };
 
 FilmCard.propTypes = {
-  film: FilmTypeProps.filmCard,
-  renderPlayer: PropTypes.func.isRequired,
-  mouseOverHandler: PropTypes.func.isRequired,
-  mouseLeaveHandler: PropTypes.func.isRequired,
-  filmId: PropTypes.number.isRequired
+  film: filmPropTypesShape,
+  isUserLogged: PropTypes.bool,
 };
 
-export default React.memo(FilmCard);
+export default FilmCard;

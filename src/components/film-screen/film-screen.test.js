@@ -1,62 +1,26 @@
 import React from "react";
-import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
-import renderer from "react-test-renderer";
-import {AuthorizationStatus} from "../../constants";
-import {mockedStore} from "../../test-data/store";
-import {filmListMock, mockReviews, noop} from "../../test-data/test-data";
+import ShallowRenderer from "react-test-renderer/shallow";
+import {film, films} from "../../mocks/films";
+import {reviews} from "../../mocks/reviews";
 import {FilmScreen} from "./film-screen";
 
-describe(`FilmScreen render`, () => {
-  it(`renders FilmScreen component when user is authorized`, () => {
-    const tree = renderer
-      .create(
-          <Provider store={mockedStore}>
-            <BrowserRouter>
-              <FilmScreen
-                film={filmListMock[0]}
-                films={filmListMock}
-                authorizationStatus={AuthorizationStatus.AUTH}
-                reviews={mockReviews}
-                onPlayButtonClick={noop}
-                loadReviews={noop}
-              />
-            </BrowserRouter>
-          </Provider>,
-          {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      )
-      .toJSON();
+const renderer = new ShallowRenderer();
+const noop = ()=>{};
 
-    expect(tree).toMatchSnapshot();
-  });
+it(`FilmScreen renders correctly`, () => {
+  renderer.render(
+      <FilmScreen
+        id = "1"
+        film = {film}
+        isFilmLoaded = {true}
+        reviews = {reviews}
+        loadFilmInfoAction={noop}
+        similarFilms = {films}
+        isUserLogged = {false}
+      />
+  );
 
-  it(`renders FilmScreen when the user is not authorized`, () => {
-    const tree = renderer
-      .create(
-          <Provider store={mockedStore}>
-            <BrowserRouter>
-              <FilmScreen
-                film={filmListMock[0]}
-                films={filmListMock}
-                authorizationStatus={AuthorizationStatus.NO_AUTH}
-                reviews={mockReviews}
-                onPlayButtonClick={noop}
-                loadReviews={noop}
-              />
-            </BrowserRouter>
-          </Provider>,
-          {
-            createNodeMock: () => {
-              return {};
-            }
-          }
-      )
-      .toJSON();
+  const tree = renderer.getRenderOutput();
 
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });
