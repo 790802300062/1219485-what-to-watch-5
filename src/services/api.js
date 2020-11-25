@@ -4,7 +4,7 @@ const BACKEND_URL = `https://5.react.pages.academy/wtw`;
 const REQUEST_TIMEOUT = 5000;
 
 const HttpCode = {
-  UNAUTHORIZED: 401,
+  UNAUTHORIZED: 401
 };
 
 export const createAPI = (onUnauthorized) => {
@@ -21,6 +21,8 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
+
+      throw err;
     }
 
     throw err;

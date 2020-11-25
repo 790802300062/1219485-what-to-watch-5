@@ -1,139 +1,65 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import {Router as BrowserRouter, Switch, Route} from "react-router-dom";
-import {FilmTypeProps} from "../../prop-types-validations";
-import MainPage from "../main-page/main-page";
-import AuthScreen from "../auth-screen/auth-screen";
-import MyListScreen from "../my-list-screen/my-list-screen";
+import React from "react";
+import {Link, Route, Router, Switch} from "react-router-dom";
+import {Path} from '../../constants';
+import browserHistory from "../../utils/browser-history";
+import AddReviewScreen from "../add-review-screen/add-review-screen";
 import FilmScreen from "../film-screen/film-screen";
-import FilmAddReviewScreen from "../film-add-review-screen/film-add-review-screen";
+import MainScreen from "../main-screen/main-screen";
+import MyListScreen from "../my-list-screen/my-list-screen";
 import PlayerScreen from "../player-screen/player-screen";
-import {connect} from "react-redux";
-import {getFilmById} from "../../utils";
 import PrivateRoute from "../private-route/private-route";
-import browserHistory from "../../browser-history";
-import {AppRoute} from "../../constants";
-import {getFilms, getIsLoading} from "../../store/selectors";
-import {fetchFilmList} from "../../store/api-actions";
-import Preloader from "../preloader/preloader";
+import SignInScreen from "../sign-in-screen/sign-in-screen";
 
-class App extends PureComponent {
-  componentDidMount() {
-    this.props.loadFilmList();
-  }
+const App = () =>{
+  return (
+    <Router history={browserHistory}>
+      <Switch>
 
-  render() {
-    const {movieCard, films, isLoading} = this.props;
+        <Route exact path={Path.MAIN_PAGE}>
+          <MainScreen/>
+        </Route>
 
-    if (isLoading) {
-      return <Preloader />;
-    }
+        <Route exact path={Path.SIGN_IN}>
+          <SignInScreen/>
+        </Route>
 
-    return (
-      <BrowserRouter history={browserHistory}>
-        <Switch>
+        <PrivateRoute exact path={Path.MY_LIST} render = {()=>
+          <MyListScreen/>}/>
 
-          <Route exact
-            path={AppRoute.ROOT}
-            render={({history}) => (
-              <MainPage
-                movieCard={movieCard}
-                onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/1`)}
-              />
-            )}
-          />
+        <PrivateRoute exact path={Path.ADD_REVIEW}
+          render={(routerProps)=>{
+            const id = routerProps.match.params.id;
+            return (
+              <AddReviewScreen id = {id}/>);
+          }}/>
 
-          <Route path={AppRoute.LOGIN} exact>
-            <AuthScreen />
-          </Route>
+        <Route exact path={Path.FILM_SCREEN}
+          render={(routerProps)=>{
+            const id = routerProps.match.params.id;
+            return (
+              <FilmScreen id = {id}/>);
+          }}/>
 
-          <PrivateRoute
-            path={AppRoute.MY_LIST}
-            exact
-            render={() => (
-              <MyListScreen />
-            )}
-          />
+        <Route exact path={Path.PLAYER}
+          render={(routerProps)=>{
+            const id = routerProps.match.params.id;
+            return (
+              <PlayerScreen id = {id}/>);
+          }}/>
 
-          <Route exact
-            path={`${AppRoute.FILMS}/:id`}
-            render={
-              ({history, match}) => {
-                const filmId = match.params.id;
-                const film = getFilmById(films, filmId);
+        <Route
+          render={() => (
+            <>
+              <h1>404.</h1>
+              <p>Page not found</p>
+              <Link to={Path.MAIN_PAGE}>Go to main page</Link>
+            </>)}/>
 
-                return (
-                  <FilmScreen
-                    film={film}
-                    films={films}
-                    onPlayButtonClick={() => history.push(`${AppRoute.PLAYER}/${filmId}`)}
-                  />
-                );
-              }
-            }
-          />
-
-          <PrivateRoute exact
-            path={`${AppRoute.FILMS}/:id/review`}
-            render={
-              ({match}) => {
-                const filmId = match.params.id;
-                const film = getFilmById(films, filmId);
-
-                return (
-                  <FilmAddReviewScreen
-                    film={film}
-                  />
-                );
-              }
-            }
-          />
-
-          <Route exact
-            path={`${AppRoute.PLAYER}/:id`}
-            render={
-              ({history, match}) => {
-                const filmId = match.params.id;
-                const film = getFilmById(films, filmId);
-
-                return (
-                  <PlayerScreen
-                    film={film}
-                    onExitButtonClick={() => history.push(AppRoute.ROOT)}
-                  />
-                );
-              }
-            }
-          />
-
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  films: getFilms(state),
-  isLoading: getIsLoading(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadFilmList() {
-    dispatch(fetchFilmList());
-  }
-});
-
-App.propTypes = {
-  movieCard: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-  }).isRequired,
-  films: FilmTypeProps.films,
-  loadFilmList: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+      </Switch>
+    </Router>
+  );
 };
 
+App.propTypes = {};
 
-export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

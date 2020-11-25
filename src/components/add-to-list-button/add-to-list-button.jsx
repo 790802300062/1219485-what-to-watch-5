@@ -1,0 +1,51 @@
+import PropTypes from 'prop-types';
+import React from "react";
+import {connect} from 'react-redux';
+import {Path} from '../../constants';
+import {updateIsFilmFavorite} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/middlewares/redirect';
+import {isUserLoggedIn} from '../../store/user/user';
+
+export const AddToListButton = (props)=>{
+  const {id, isFavorite, onClickAction, redirectAction, isUserLogged} = props;
+
+  return (
+    <button
+      className="btn btn--list movie-card__button"
+      type="button"
+      onClick = {()=>{
+        if (!isUserLogged) {
+          redirectAction();
+        } else {
+          onClickAction(id, !isFavorite);
+        }
+      }}>
+      <svg viewBox="0 0 19 20" width="19" height="20">
+        <use xlinkHref={isFavorite ? `#in-list` : `#add`}></use>
+      </svg>
+      <span>My list</span>
+    </button>);
+};
+
+AddToListButton.propTypes = {
+  id: PropTypes.string,
+  isFavorite: PropTypes.bool,
+  onClickAction: PropTypes.func.isRequired,
+  redirectAction: PropTypes.func.isRequired,
+  isUserLogged: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  isUserLogged: isUserLoggedIn(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onClickAction(id, isFavorite) {
+    dispatch(updateIsFilmFavorite(id, isFavorite));
+  },
+  redirectAction() {
+    dispatch(redirectToRoute(Path.SIGN_IN));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddToListButton);

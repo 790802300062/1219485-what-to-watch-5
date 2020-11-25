@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserMenu renders correctly With logged user 1`] = `
+<div
+  className="user-block"
+>
+  <div
+    className="user-block"
+  >
+    <div
+      className="user-block__avatar"
+    >
+      <Link
+        to="/mylist"
+      >
+        <img
+          alt="User avatar"
+          height="63"
+          src="src"
+          width="63"
+        />
+      </Link>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UserMenu renders correctly Without logged user 1`] = `
+<div
+  className="user-block"
+>
+  <div
+    className="user-block"
+  >
+    <Link
+      className="user-block__link"
+      to="/login"
+    >
+      Sign in
+    </Link>
+  </div>
+</div>
+`;
