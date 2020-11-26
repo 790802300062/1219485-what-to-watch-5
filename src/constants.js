@@ -12,6 +12,7 @@ export const FILM_PREVIEW_TIMEOUT = 1000;
 export const FilmRating = {
   AWESOME: `Awesome`,
   VERY_GOOD: `Very good`,
+  GOOD: `Good`,
   NORMAL: `Normal`,
   BAD: `Bad`,
   NOT_RATED: `Not rated`,
@@ -20,7 +21,8 @@ export const FilmRating = {
 export const FILM_RATING_SCALE = [
   {rating: FilmRating.AWESOME, minScore: 10},
   {rating: FilmRating.VERY_GOOD, minScore: 8},
-  {rating: FilmRating.NORMAL, minScore: 5},
+  {rating: FilmRating.GOOD, minScore: 5},
+  {rating: FilmRating.NORMAL, minScore: 3},
   {rating: FilmRating.BAD, minScore: 0}
 ];
 
