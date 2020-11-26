@@ -1,78 +1,42 @@
-import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import React, {useEffect, useRef} from "react";
+import {FILM_PREVIEW_TIMEOUT} from '../../constants';
 
-class VideoPlayer extends PureComponent {
-  constructor(props) {
-    super(props);
+export const VideoPlayer = (props) => {
+  const {poster, src} = props;
+  const videoRef = useRef(null);
+  const videoSourceRef = useRef(null);
 
-    this._videoRef = createRef();
-  }
-
-  componentDidMount() {
-    const video = this._videoRef.current;
-    const {onCurrentTimeChange} = this.props;
-
-    video.ontimeupdate = () => {
-      const currentTime = Math.floor(video.currentTime);
-
-      if (onCurrentTimeChange) {
-        onCurrentTimeChange(currentTime);
-      }
+  useEffect(()=>{
+    const video = videoRef.current;
+    videoRef.current.oncanplaythrough = () => {
+      setTimeout(()=>{
+        video.play();
+      }, FILM_PREVIEW_TIMEOUT);
     };
-  }
 
-  componentDidUpdate() {
-    const video = this._videoRef.current;
-    const {isResetAfterPause} = this.props;
+    return ()=>{
+      videoRef.current.oncanplaythrough = null;
+    };
+  });
 
-    if (this.props.isPlaying) {
-      video.play();
-    } else {
-      video.pause();
-
-      if (isResetAfterPause) {
-        video.load();
-      }
-    }
-  }
-
-  render() {
-    const {
-      isMuted = false,
-      src,
-      poster,
-      width,
-      height,
-      videoStyles,
-      additionalClasses
-    } = this.props;
-
-    return (
+  return (
+    <>
       <video
-        className={additionalClasses}
-        src={src}
+        width="280"
+        height="175"
+        muted="muted"
         poster={poster}
-        muted={isMuted}
-        width={width}
-        height={height}
-        style={videoStyles}
-        ref={this._videoRef}
-      />
-    );
-  }
-}
+        ref = {videoRef}>
+        <source src={src} ref = {videoSourceRef}/>
+      </video>
+    </>);
+};
 
 VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  isMuted: PropTypes.bool,
   src: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  videoStyles: PropTypes.object,
-  additionalClasses: PropTypes.string,
-  isResetAfterPause: PropTypes.bool,
-  onCurrentTimeChange: PropTypes.func
 };
 
 export default VideoPlayer;
+

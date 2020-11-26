@@ -1,51 +1,36 @@
+import PropTypes from 'prop-types';
 import React from "react";
-import {FilmTypeProps} from "../../prop-types-validations";
-import FilmCardList from "../film-card-list/film-card-list";
-import LogoBlock from "../logo-block/logo-block";
-import UserBlock from "../user-block/user-block";
-import withActivePlayer from "../../hocs/with-active-player/with-active-player";
-import {connect} from "react-redux";
-import {getFavoriteFilms} from "../../store/selectors";
+import {connect} from 'react-redux';
+import {selectFavoriteFilms} from '../../store/films/films';
+import {filmPropTypesShape} from "../../utils/props-validation";
+import FilmsList from "../films-list/films-list";
+import Footer from '../footer/footer';
+import Header from '../header/header';
 
-const FilmCardListWithActivePlayer = withActivePlayer(FilmCardList);
-
-const MyListScreen = (props) => {
+export const MyListScreen = (props) => {
   const {films} = props;
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <LogoBlock />
-
+      <Header className="user-page__head">
         <h1 className="page-title user-page__title">My list</h1>
-
-        <UserBlock />
-      </header>
+      </Header>
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <FilmCardListWithActivePlayer
-          films={films}
-        />
+        <FilmsList films = {films}/>
       </section>
 
-      <footer className="page-footer">
-        <LogoBlock isFooter />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
-    </div>
-  );
+      <Footer/>
+    </div>);
 };
 
-MyListScreen.propTypes = FilmTypeProps.films;
+MyListScreen.propTypes = {
+  films: PropTypes.arrayOf(filmPropTypesShape).isRequired
+};
 
 const mapStateToProps = (state) => ({
-  films: getFavoriteFilms(state),
+  films: selectFavoriteFilms(state),
 });
 
-export {MyListScreen};
 export default connect(mapStateToProps)(MyListScreen);
