@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from "react";
 import {connect} from 'react-redux';
 import {Path} from '../../constants';
-import {updateIsFilmFavorite} from '../../store/api-actions';
+import {updateFavoriteFilm} from '../../store/api-actions';
 import {redirectToRoute} from '../../store/middlewares/redirect';
 import {isUserLoggedIn} from '../../store/user/user';
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClickAction(id, isFavorite) {
-    dispatch(updateIsFilmFavorite(id, isFavorite));
+    dispatch(updateFavoriteFilm(id, isFavorite));
   },
   redirectAction() {
     dispatch(redirectToRoute(Path.SIGN_IN));

@@ -154,14 +154,13 @@ AddReviewScreen.propTypes = {
   postReviewAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, {id}) => (
-  {
+const mapStateToProps = (state, {id}) => ({
     film: selectFilm(state),
     isFilmLoaded: selectIsFilmLoaded(id)(state),
     isRequested: isReviewPostRequested(state),
     isRequestFailed: isReviewPostFailed(state),
     errorCode: selectReviewErrorCode(state),
-  });
+});
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmAction(id) {

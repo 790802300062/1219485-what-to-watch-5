@@ -1,4 +1,5 @@
 const TIME_DIVISOR = 60;
+const MINUTES_WITH_ZERO = 10;
 
 export const getDateAndTime = (date, withTime = true) => {
   const day = addZeroAsFirstChar(date.getDate());
@@ -10,50 +11,50 @@ export const getDateAndTime = (date, withTime = true) => {
 };
 
 export const formatTime = (date) => {
-  const hours = addZeroAsFirstChar(date.getUTCHours() % 12);
-  const minutes = addZeroAsFirstChar(date.getUTCMinutes());
+  const hoursAmount = addZeroAsFirstChar(date.getUTCHours() % 12);
+  const minutesAmount = addZeroAsFirstChar(date.getUTCMinutes());
 
-  return `${hours}:${minutes}`;
+  return `${hoursAmount}:${minutesAmount}`;
 };
 
 const addZeroAsFirstChar = (value) => {
-  return value < 10 ? `0${value}` : String(value);
+  return value < MINUTES_WITH_ZERO ? `0${value}` : String(value);
 };
 
-export const getFilmDurationHM = (totalMimutes) =>{
+export const getFilmDurationHM = (totalMinutesAmount) =>{
 
-  const hours = Math.trunc(totalMimutes / TIME_DIVISOR);
-  const minutes = totalMimutes - hours * TIME_DIVISOR;
+  const hoursAmount = Math.trunc(totalMinutesAmount / TIME_DIVISOR);
+  const minutesAmount = totalMinutesAmount - hoursAmount * TIME_DIVISOR;
 
-  const result = [];
+  const results = [];
 
-  if (hours > 0) {
-    result.push(`${hours}h`);
+  if (hoursAmount > 0) {
+    results.push(`${hoursAmount}h`);
   }
 
-  if (minutes > 0) {
-    result.push(`${addZeroAsFirstChar(minutes)}m`);
+  if (minutesAmount > 0) {
+    results.push(`${addZeroAsFirstChar(minutesAmount)}m`);
   }
 
-  return result.join(` `);
+  return results.join(` `);
 };
 
-export const getVideoDurationHMS = (totalSeconds) =>{
+export const getVideoDurationHMS = (totalSecondsAmount) =>{
 
-  totalSeconds = Math.trunc(totalSeconds);
-  const totalMimutes = Math.trunc(totalSeconds / TIME_DIVISOR);
+  totalSecondsAmount = Math.trunc(totalSecondsAmount);
+  const totalMimutesAmount = Math.trunc(totalSecondsAmount / TIME_DIVISOR);
 
-  const hours = Math.trunc(totalSeconds / TIME_DIVISOR / TIME_DIVISOR);
-  const minutes = totalMimutes - hours * TIME_DIVISOR;
-  const seconds = totalSeconds - minutes * TIME_DIVISOR - hours * TIME_DIVISOR * TIME_DIVISOR;
+  const hoursAmount = Math.trunc(totalSecondsAmount / TIME_DIVISOR / TIME_DIVISOR);
+  const minutesAmount = totalMimutesAmount - hoursAmount * TIME_DIVISOR;
+  const secondsAmount = totalSecondsAmount - minutesAmount * TIME_DIVISOR - hoursAmount * TIME_DIVISOR * TIME_DIVISOR;
 
-  const result = [];
+  const results = [];
 
-  result.push(`${hours}`);
-  result.push(`${addZeroAsFirstChar(minutes)}`);
-  result.push(`${addZeroAsFirstChar(seconds)}`);
+  results.push(`${hoursAmount}`);
+  results.push(`${addZeroAsFirstChar(minutesAmount)}`);
+  results.push(`${addZeroAsFirstChar(secondsAmount)}`);
 
-  return result.join(`:`);
+  return results.join(`:`);
 };
 
 export const getReviewDateMDY = (reviewDate) =>{

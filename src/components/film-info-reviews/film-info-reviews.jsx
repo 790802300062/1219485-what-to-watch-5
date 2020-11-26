@@ -4,15 +4,15 @@ import {splitArrayToSegments} from "../../utils/common";
 import {getDateAndTime, getReviewDateMDY} from "../../utils/date-time-formatter";
 import {reviewPropTypesShape} from "../../utils/props-validation";
 
+const REVIEWS_COLUMNS_AMOUNT = 2;
+
 const splitReviewsToColumns = (reviews, columnsAmount) => {
   return splitArrayToSegments(reviews, columnsAmount);
 };
 
 const FilmInfoReviews = (props) => {
   const {reviews} = props;
-
-  const REVIEWS_COLUMNS_COUNT = 2;
-  const reviewsByColumns = splitReviewsToColumns(reviews, REVIEWS_COLUMNS_COUNT);
+  const reviewsByColumns = splitReviewsToColumns(reviews, REVIEWS_COLUMNS_AMOUNT);
 
   return (
     <>

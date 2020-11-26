@@ -1,4 +1,4 @@
-export const exportToCamelCase = (string) => {
+export const transformToCamelCase = (string) => {
 
   return string.replace(/([-_][a-z])/ig, (stringInCamelCase) => {
 

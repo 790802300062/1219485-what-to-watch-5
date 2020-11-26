@@ -1,5 +1,5 @@
 import React from "react";
-import {exportToCamelCase} from "../../utils/common";
+import {transformToCamelCase} from "../../utils/common";
 import {getFilmDurationHM} from "../../utils/date-time-formatter";
 import {filmPropTypesShape} from "../../utils/props-validation";
 
@@ -21,7 +21,7 @@ const FilmInfoDetails = (props) => {
               {Array.isArray(starring) && starring.map((name, index)=>{
 
                 return (
-                  <React.Fragment key={`${exportToCamelCase(name)}${index}`}>
+                  <React.Fragment key={`${transformToCamelCase(name)}${index}`}>
                     {name}{index < starring.length - 1 && `,`}{index < starring.length - 1 && <br/>}
                   </React.Fragment>);
               })}

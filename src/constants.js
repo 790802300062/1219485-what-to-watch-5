@@ -52,7 +52,7 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
-export const ApiURL = {
+export const ApiUrl = {
   PROMO_FILM: `/films/promo`,
   FILMS: `/films`,
   FILM_BY_ID: `/films/`,
@@ -66,7 +66,7 @@ export const ReviewTextLength = {
   MAX: 400
 };
 
-export const SymbolsForEmail = {
+export const EmailPattern = {
   email: /^[a-zA-Z0-9.!#$%&'*+/=?^_\`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 };
 

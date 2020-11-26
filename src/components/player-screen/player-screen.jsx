@@ -8,11 +8,15 @@ import browserHistory from "../../utils/browser-history";
 import {getVideoDurationHMS} from "../../utils/date-time-formatter";
 import {filmPropTypesShape} from "../../utils/props-validation";
 
+const ZERO_DURATION = 0;
+const PERCENTS_DIVISOR = 100;
+
 const calculateProgress = (duration, currentTime)=>{
   if (!currentTime || !duration) {
-    return 0;
+    return ZERO_DURATION;
   }
-  return currentTime / duration * 100;
+
+  return currentTime / duration * PERCENTS_DIVISOR;
 };
 
 export const PlayerScreen = (props)=>{
@@ -57,6 +61,7 @@ export const PlayerScreen = (props)=>{
     const interval = setInterval(() => {
       setCurrentTime(Math.floor(videoRef.current.currentTime));
     }, 1000);
+
     return () => clearInterval(interval);
   }, [currentTime]);
 
@@ -132,11 +137,10 @@ PlayerScreen.propTypes = {
   loadFilmInfo: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, {id}) => (
-  {
-    film: selectFilm(state),
-    isFilmLoaded: selectIsFilmLoaded(id)(state)
-  });
+const mapStateToProps = (state, {id}) => ({
+  film: selectFilm(state),
+  isFilmLoaded: selectIsFilmLoaded(id)(state)
+});
 
 const mapDispatchToProps = (dispatch) => ({
   loadFilmInfo(id) {

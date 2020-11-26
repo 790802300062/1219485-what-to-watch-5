@@ -1,5 +1,5 @@
 import MockAdapter from "axios-mock-adapter";
-import {ApiURL, AuthorizationStatus, Path} from "../constants";
+import {ApiUrl, AuthorizationStatus, Path} from "../constants";
 import {createAPI} from "../services/api";
 import {fetchFavoriteFilms, fetchFilmById, fetchFilms, fetchPromoFilm, fetchReviewsByFilmId, logIn, postReview} from "./api-actions";
 import {ActionType as RedirectActionType} from "./middlewares/redirect";
@@ -27,7 +27,7 @@ describe(`Fetch user async operation works correctly`, () => {
     const loader = logIn(mockAuthInfo);
 
     mockApi
-        .onPost(ApiURL.LOGIN)
+        .onPost(ApiUrl.LOGIN)
         .reply(200, mockUser);
 
     return loader(dispatch, () => {}, api)
@@ -61,7 +61,7 @@ describe(`Fetch user async operation works correctly`, () => {
     const loader = logIn(fakeUser);
 
     mockApi
-        .onPost(ApiURL.LOGIN)
+        .onPost(ApiUrl.LOGIN)
         .reply(500, {fake: `fake`});
 
     return loader(dispatch, () => {}, api)
@@ -83,7 +83,7 @@ it(`Fetch films async operation works correctly`, () => {
   const loader = fetchFilms();
 
   mockApi
-        .onGet(ApiURL.FILMS)
+        .onGet(ApiUrl.FILMS)
         .reply(200, fakeFilms);
 
   return loader(dispatch, () => {}, api)
@@ -105,7 +105,7 @@ it(`Fetch film by id async operation works correctly`, () => {
   const loader = fetchFilmById(fakeId);
 
   mockApi
-        .onGet(`${ApiURL.FILM_BY_ID}${fakeId}`)
+        .onGet(`${ApiUrl.FILM_BY_ID}${fakeId}`)
         .reply(200, fakeFilm);
 
   return loader(dispatch, () => {}, api)
@@ -126,7 +126,7 @@ it(`Fetch promo film async operation works correctly`, () => {
   const loader = fetchPromoFilm();
 
   mockApi
-        .onGet(ApiURL.PROMO_FILM)
+        .onGet(ApiUrl.PROMO_FILM)
         .reply(200, fakeFilm);
 
   return loader(dispatch, () => {}, api)
@@ -152,7 +152,7 @@ it(`Fetch reviews by film id async operation works correctly`, () => {
   const loader = fetchReviewsByFilmId(fakeId);
 
   mockApi
-        .onGet(`${ApiURL.REVIEWS_BY_FILM_ID}${fakeId}`)
+        .onGet(`${ApiUrl.REVIEWS_BY_FILM_ID}${fakeId}`)
         .reply(200, fakeReviews);
 
   return loader(dispatch, () => {}, api)
@@ -173,7 +173,7 @@ it(`Fetch favorite films async operation works correctly`, () => {
   const loader = fetchFavoriteFilms();
 
   mockApi
-        .onGet(ApiURL.FAVORITE)
+        .onGet(ApiUrl.FAVORITE)
         .reply(200, fakeFilms);
 
   return loader(dispatch, () => {}, api)
@@ -194,7 +194,7 @@ it(`Update is film favorite async operation works correctly`, () => {
   const loader = fetchFavoriteFilms();
 
   mockApi
-        .onGet(ApiURL.FAVORITE)
+        .onGet(ApiUrl.FAVORITE)
         .reply(200, fakeFilms);
 
   return loader(dispatch, () => {}, api)
@@ -220,7 +220,7 @@ describe(`Fetch user async operation works correctly`, () => {
     mockReview = {rating: 5, comment: `comment`};
     mockFilmId = `1`;
     loader = postReview(mockFilmId, mockReview.rating, mockReview.comment);
-    url = `${ApiURL.REVIEWS_BY_FILM_ID}${mockFilmId}`;
+    url = `${ApiUrl.REVIEWS_BY_FILM_ID}${mockFilmId}`;
   });
 
   it(`with request succeeded`, () => {

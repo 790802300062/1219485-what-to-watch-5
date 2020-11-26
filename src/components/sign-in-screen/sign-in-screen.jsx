@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {SymbolsForEmail, UNKNOWN_ERROR, UserRequestErrorMessage} from '../../constants';
+import {EmailPattern, UNKNOWN_ERROR, UserRequestErrorMessage} from '../../constants';
 import {useForm} from '../../hooks/useForm';
 import {isUserRequested, isUserRequestFailed, selectUserRequestErrorCode, userRequested} from '../../store/user/user';
 import {logIn as logInAction} from "../../store/api-actions";
@@ -17,7 +17,7 @@ const validate = ({email, password})=>{
     messages.push(`Empty email`);
   }
 
-  if (email && !SymbolsForEmail.email.test(email)) {
+  if (email && !EmailPattern.email.test(email)) {
     isValid = false;
     messages.push(`Incorrect email`);
   }
