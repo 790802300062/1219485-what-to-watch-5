@@ -9,7 +9,7 @@ import {
   getCurrentGenre,
   getFilteredFilms,
   selectGenreList,
-  isAllFilmsShown,
+  selectIsAllFilmsShown,
   getShownFilmsAmount} from '../../store/catalog/catalog';
 import {filmPropTypesShape} from "../../utils/props-validation";
 import FilmsList from "../films-list/films-list";
@@ -17,7 +17,7 @@ import GenreFilter from "../genre-filter/genre-filter";
 import ShowMoreButton from '../show-more-button/show-more-button';
 
 export const FilmCatalog = (props) => {
-  const {films, currentGenre, genres} = props;
+  const {films, currentGenre, genres, isAllFilmsShown} = props;
   const {onGenreChangeAction, onLoadMoreButtonClickAction} = props;
 
   return (
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
     films,
     genres: selectGenreList(state),
     currentGenre: getCurrentGenre(state),
-    isAllFilmsShown: isAllFilmsShown(state)};
+    isAllFilmsShown: selectIsAllFilmsShown(state)};
 };
 
 const mapDispatchToProps = (dispatch) => ({

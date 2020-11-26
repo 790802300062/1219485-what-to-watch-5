@@ -58,5 +58,5 @@ export const getFilteredFilms = createSelector(
     (films, genre)=> genre === ALL_GENRES_FILTER ? films : films.filter((film) => isFilmBelongsToGenre(film, genre))
 );
 
-export const isAllFilmsShown = (state) => getShownFilmsAmount(state) >= getFilteredFilms(state).length;
+export const selectIsAllFilmsShown = (state) => getShownFilmsAmount(state) >= getFilteredFilms(state).length;
 export const selectGenreList = (state) => getGenresList(selectFilms(state));
